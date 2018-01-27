@@ -89,6 +89,11 @@ class Ui_Form(QtWidgets.QWidget):
     def UpdateTree(self):
         col = self.dbu.getColumns()
         table = self.dbu.getTable()
+        #큐티 다큐멘테이션을 참고해서 리셋을 찾았고
+        self.progressBar.reset()
+        #리셋후에는 값을 씌워줘야곘지? 이런 간단한 메카니점이었다니!
+        self.progressBar.setProperty("value", *(DB_manager_exr.cnxor.mane(DICTA['subjectName'])))
+
 
 
 
