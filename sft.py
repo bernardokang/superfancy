@@ -7,13 +7,19 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import DB_manager
+#내가 만든 디비매니저 모듈을 임포트 한다
+
+
 
 class Ui_Form(QtWidgets.QWidget):
 
-    def __init__(self):
-        QtWidgets.QWidget.__init__(self)
-        self.setupUi(self)
-
+    def __init__(self, database, tableName):
+        QtWidgets.QWidget.__init__(self) #엑시멀코드 수정사항
+        self.dbu = DB_manager.DatabaseUtility(database, tableName)
+        self.setupUi(self) #셀프를 빼먹지 말것
+        #여기 깔리는 순서가 상관이 있는지는 모르겠다마는
+        self.UpdateTree()
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
@@ -64,12 +70,24 @@ class Ui_Form(QtWidgets.QWidget):
         self.pushButton_2.setText(_translate("Form", "MESSAGE"))
 
 
+
+
+    def UpdateTree(self):
+        pass
+
+
 if __name__ == "__main__":
     import sys
+
+    db = "IU_KISS"
+    tableName = "PALME"
+    import sys
+
+
     app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
+    # Form = QtWidgets.QWidget()
+    ui = Ui_Form(db, tableName)
+    # ui.setupUi(Form)
+    ui.show()
     sys.exit(app.exec_())
 
