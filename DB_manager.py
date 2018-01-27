@@ -8,15 +8,25 @@ from datetime import datetime
 
 KEYWORD = dict()
 KEYWORD = {'bng':4}
-KEYWORD['ang'] = int(3)
+KEYWORD['typeNameOfSubject'] = int(1)
 print(KEYWORD)
 
+
+
+
+
 class DatabaseUtility:
+
+
+
     def __init__(self, database, tableName):
+        f = open('password.py', 'r')
+        p = f.read()
+        f.close()
         self.db = database
 
         self.tableName = tableName
-        self.cnx = mysql.connector.connect(user='root', password='Ms5276262*', host='127.0.0.1')
+        self.cnx = mysql.connector.connect(user='root', password=p, host='127.0.0.1')
         # cnx = connection; extablishing conncection
         self.cursor = self.cnx.cursor()
 
@@ -83,14 +93,28 @@ class DatabaseUtility:
         "where"
 
         #딕트쌍으로 과목-인상시킬 포인트를 짜고, 스트링테크닉으로 mysql에 이해시키려고 함.
-        #파이썬 코드를 마이스큐엘에 알아듣게 보내는데 성공함, 버튼 클릭 시 이제 db에 3씩 값이 추가됨 
-        cmd += "UPDATE`PALME` SET `commits` = `commits`+ %s WHERE `name` = 'ang'" % KEYWORD['ang']
+        #파이썬 코드를 마이스큐엘에 알아듣게 보내는데 성공함, 버튼 클릭 시 이제 db에 3씩 값이 추가됨
+        cmd += "UPDATE`PALME` SET `commits` = `commits`+ %s WHERE `name` = 'ang'" % KEYWORD['typeNameOfSubject']
         self.runCommand(cmd)
 
-    def __del__(self):
-        self.cnx.commit()
-        self.cursor.close()
-        self.cnx.close()
+
+
+
+    #쓰이지 않을 것 같다
+    # def toMysqlwithKey(self):
+    #     cmd = "SELECT COMMITS FROM `PALME` WHERE `id`=1"
+    #     # print(akey)
+    #     self.runCommand(cmd)
+
+
+
+
+
+#이 종료자가 꼭 필요한가?
+    # def __del__(self):
+    #     self.cnx.commit()
+    #     self.cursor.close()
+    #     self.cnx.close()
 
 
 ##===============================================
