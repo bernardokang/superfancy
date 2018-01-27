@@ -60,6 +60,16 @@ class Ui_Form(QtWidgets.QWidget):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+        #푸시버튼 연결
+        self.pushButton.clicked.connect(self.commit)
+
+
+
+
+
+
+
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Super Facny Progress BAR"))
@@ -69,11 +79,17 @@ class Ui_Form(QtWidgets.QWidget):
         self.comboBox.setItemText(1, _translate("Form", "TD LABEL"))
         self.pushButton_2.setText(_translate("Form", "MESSAGE"))
 
+    #푸시버튼 설계
+    def commit(self):
+        self.dbu.addEntryToTable()
+        self.UpdateTree()
 
 
 
+    #업데이트 설계
     def UpdateTree(self):
-        pass
+        col = self.dbu.getColumns()
+        table = self.dbu.getTable()
 
 
 if __name__ == "__main__":
