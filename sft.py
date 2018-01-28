@@ -56,6 +56,8 @@ class Ui_Form(QtWidgets.QWidget):
         self.comboBox.addItem("")
         self.horizontalLayout_3.addWidget(self.comboBox)
         self.lineEdit = QtWidgets.QLineEdit(Form)
+        #이건 내가 직접 큐티 다큐멍 보고서 찾은 내용인데 플레이스 홀더 넣기!
+        self.lineEdit.setPlaceholderText('add commit message')
         self.lineEdit.setObjectName("lineEdit")
         self.horizontalLayout_3.addWidget(self.lineEdit)
         self.pushButton_2 = QtWidgets.QPushButton(Form)
@@ -101,13 +103,13 @@ class Ui_Form(QtWidgets.QWidget):
 
 
     #탭에 선택된 텍스트를 출력해주옵니다
-    def commit2(self):
-        self.text = str(self.comboBox.currentText())
-        print(self.text)
-        print(DICTA[self.text]) #딕트통신도 가능하다
-        self.message = self.lineEdit.text()
-        print(self.message)
-        self.lineEdit.clear() #간단한 업데이트 기능!(초기화)
+    # def commit2(self):
+    #     self.text = str(self.comboBox.currentText())
+    #     print(self.text)
+    #     print(DICTA[self.text]) #딕트통신도 가능하다
+    #     self.message = self.lineEdit.text()
+    #     print(self.message)
+    #     self.lineEdit.clear() #간단한 업데이트 기능!(초기화)
 
 
 
