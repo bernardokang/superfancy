@@ -54,7 +54,7 @@ class DatabaseUtility:
         #여기선 추가적으로 추가/제거가 힘들고 mysql터미널에서 직접 해 주어야 함!
 
 
-
+        #이건 테이블이 없을 경우에만 동작하는 것이므로 지금이미 만든 상태에선 그닥 에러를 끼치지 않고 있는 것
         cmd = (" CREATE TABLE IF NOT EXISTS " + self.tableName + " ("
                                                                  " `ID` int(5) NOT NULL AUTO_INCREMENT,"
                                                                  " `date` date NOT NULL,"
@@ -84,18 +84,23 @@ class DatabaseUtility:
             msg = self.cursor.fetchone()
         return msg
 
-    def addEntryToTable(self):
-        date1 = datetime.now().strftime("%y-%m-%d")
-        time = datetime.now().strftime("%H:%M")
+    def addEntryToTable(self, text):
+        #시간을 단순하게 하나의 코드로 짰다 저 안에 들어가는 포맷을 넣고빼고하면서 조작 가능
+        datims = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        cmd = " INSERT INTO " + self.tableName + " (`date`, `time`)"
-        cmd += " VALUES ('%s', '%s');" % (date1, time)
+        #sftpy에서 보낸 커밋메시지를 커밋메시지 함에 기록한다
+        # (이거 변경하느라 시간이.. 아무튼 하나의 칼럼을 추가제거하면 실행할때 필요조건(반드시 엮이는 것이 빠지는지)인 것이 사라지는지 확인 필요)
+        cmd = " INSERT INTO " + self.tableName + " (`datim`, `message`)"
+        cmd += " VALUES ('%s', '%s');" % (datims, text)
         "where"
 
         #딕트쌍으로 과목-인상시킬 포인트를 짜고, 스트링테크닉으로 mysql에 이해시키려고 함.
         #파이썬 코드를 마이스큐엘에 알아듣게 보내는데 성공함, 버튼 클릭 시 이제 db에 3씩 값이 추가됨
         cmd += "UPDATE`PALME` SET `commits` = `commits`+ %s WHERE `name` = 'ang'" % KEYWORD['typeNameOfSubject']
         self.runCommand(cmd)
+
+
+
 
 
 
