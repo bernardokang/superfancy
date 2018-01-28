@@ -12,7 +12,7 @@ import DB_manager, DB_manager_exr
 
 
 #딕타라는 딕트를 만들고 과목명이 ang인 경우 해시키값으로 ak를 쓰도록 하겠다
-DICTA = {'subjectName':'ak', 'TD LABEL': 'pr44'}
+DICTA = {'subjectName':'iudiary', 'TD LABEL': 'pr44'}
 
 #이렇게 새로운 모듈을 만들고(이것의 역할은 mysql 데이타베이스를 읽어 오는 것이다) 인스턴스로 접근 했다
 print(DB_manager_exr.cnxor.mane(DICTA['subjectName']))
@@ -41,6 +41,8 @@ class Ui_Form(QtWidgets.QWidget):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.progressBar = QtWidgets.QProgressBar(Form)
+
+        #표시하는 역할을 한다 렌더링이지
         self.progressBar.setProperty("value",*(DB_manager_exr.cnxor.mane(DICTA['subjectName'])))
         self.progressBar.setObjectName("progressBar")
         self.horizontalLayout_2.addWidget(self.progressBar)
@@ -70,7 +72,7 @@ class Ui_Form(QtWidgets.QWidget):
 
         #푸시버튼 연결
         self.pushButton.clicked.connect(self.commit)
-        self.pushButton_2.clicked.connect(self.commit2)
+        # self.pushButton_2.clicked.connect(self.commit2)
 
 
     def retranslateUi(self, Form):
