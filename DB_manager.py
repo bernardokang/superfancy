@@ -10,11 +10,11 @@ KEYWORD = dict()
 KEYWORD = {'bng':4}
 KEYWORD['typeNameOfSubject'] = int(1)
 print(KEYWORD)
+DICTA = {'subjectName':'iudiary', 'TD LABEL': 'pr44'}
 
 
 
-
-
+#얘가 직접 일하는 애지, 보내는 애이기도 하고
 class DatabaseUtility:
 
 
@@ -96,7 +96,7 @@ class DatabaseUtility:
 
         #딕트쌍으로 과목-인상시킬 포인트를 짜고, 스트링테크닉으로 mysql에 이해시키려고 함.
         #파이썬 코드를 마이스큐엘에 알아듣게 보내는데 성공함, 버튼 클릭 시 이제 db에 3씩 값이 추가됨
-        cmd += "UPDATE`PALME` SET `commits` = `commits`+ %s WHERE `name` = 'ang'" % KEYWORD['typeNameOfSubject']
+        cmd += "UPDATE`PALME` SET `commits` = `commits`+ %s WHERE `name` = '%s'" % (KEYWORD['typeNameOfSubject'], DICTA['subjectName'])
         self.runCommand(cmd)
 
 
