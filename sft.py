@@ -12,7 +12,7 @@ import DB_manager, DB_manager_exr
 
 
 #딕타라는 딕트를 만들고 과목명이 ang인 경우 해시키값으로 ak를 쓰도록 하겠다
-DICTA = {'subjectName':'ak'}
+DICTA = {'subjectName':'ak', 'TD LABEL': 'pr44'}
 
 #이렇게 새로운 모듈을 만들고(이것의 역할은 mysql 데이타베이스를 읽어 오는 것이다) 인스턴스로 접근 했다
 print(DB_manager_exr.cnxor.mane(DICTA['subjectName']))
@@ -68,6 +68,7 @@ class Ui_Form(QtWidgets.QWidget):
 
         #푸시버튼 연결
         self.pushButton.clicked.connect(self.commit)
+        self.pushButton_2.clicked.connect(self.commit2)
 
 
     def retranslateUi(self, Form):
@@ -81,8 +82,12 @@ class Ui_Form(QtWidgets.QWidget):
 
     #푸시버튼 설계
     def commit(self):
-        self.dbu.addEntryToTable()
+        #(커밋메시지)텍스트도 같이 보낸다. 공란일 경우 ''가 보내진다
+        text = self.lineEdit.text()
+        self.dbu.addEntryToTable(text)
         self.UpdateTree()
+        #메시지를 보냇으면 리셋해야지 또 쓰겡
+        self.lineEdit.clear()
 
 
     #업데이트 설계
@@ -93,6 +98,16 @@ class Ui_Form(QtWidgets.QWidget):
         self.progressBar.reset()
         #리셋후에는 값을 씌워줘야곘지? 이런 간단한 메카니점이었다니!
         self.progressBar.setProperty("value", *(DB_manager_exr.cnxor.mane(DICTA['subjectName'])))
+
+
+    #탭에 선택된 텍스트를 출력해주옵니다
+    def commit2(self):
+        self.text = str(self.comboBox.currentText())
+        print(self.text)
+        print(DICTA[self.text]) #딕트통신도 가능하다
+        self.message = self.lineEdit.text()
+        print(self.message)
+        self.lineEdit.clear() #간단한 업데이트 기능!(초기화)
 
 
 
