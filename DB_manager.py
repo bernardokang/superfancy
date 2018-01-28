@@ -92,11 +92,16 @@ class DatabaseUtility:
         # (이거 변경하느라 시간이.. 아무튼 하나의 칼럼을 추가제거하면 실행할때 필요조건(반드시 엮이는 것이 빠지는지)인 것이 사라지는지 확인 필요)
         cmd = " INSERT INTO " + self.tableName + " (`datim`, `message`)"
         cmd += " VALUES ('%s', '%s');" % (datims, text)
-        "where"
+        # "where"
+
 
         #딕트쌍으로 과목-인상시킬 포인트를 짜고, 스트링테크닉으로 mysql에 이해시키려고 함.
         #파이썬 코드를 마이스큐엘에 알아듣게 보내는데 성공함, 버튼 클릭 시 이제 db에 3씩 값이 추가됨
-        cmd += "UPDATE`PALME` SET `commits` = `commits`+ %s WHERE `name` = '%s'" % (KEYWORD['typeNameOfSubject'], DICTA['subjectName'])
+        cmd += "UPDATE`PALME` SET `commits` = `commits`+ %s WHERE `name` = '%s';" % (KEYWORD['typeNameOfSubject'], DICTA['subjectName'])
+
+        #특정 과목의 최근 커밋시간을 입력한다(아니 업데이트한다)
+        cmd += "UPDATE`PALME` SET `RCOMMIT` = '%s' where name = '%s'" % (datims, DICTA['subjectName'])
+        #요기 컨벤션 잘지켜줘야한다 컨벤션 안지키면 멀티플 투루 에러가 뜸..!
         self.runCommand(cmd)
 
 
