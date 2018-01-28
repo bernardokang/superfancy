@@ -3,7 +3,7 @@ import mysql.connector
 
 
 
-#커서를 훼치해서 받아왔다
+#커서를 훼치해서 받아왔다(받아오는 것만 한다)
 class CNXOR():
     def mane(self, nameOfpercent):
         f = open('password.py', 'r')
@@ -12,7 +12,7 @@ class CNXOR():
 
         self.cnx =mysql.connector.connect(user='root', database='IU_KISS', password=p, host='127.0.0.1')
         self.cursor = self.cnx.cursor()
-        query = ("SELECT COMMITS FROM PALME WHERE akey= '%s'" % nameOfpercent)
+        query = ("SELECT COMMITS FROM PALME WHERE name= '%s'" % nameOfpercent)
         self.cursor.execute(query)
         self.data = self.cursor.fetchone()
         return self.data
