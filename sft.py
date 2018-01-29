@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 import DB_manager, DB_manager_exr
 #내가 만든 디비매니저 모듈을 임포트 한다
 
@@ -16,8 +16,14 @@ DICTA = {'subjectName':'iudiary', 'TD LABEL': 'pr44'}
 
 #이렇게 새로운 모듈을 만들고(이것의 역할은 mysql 데이타베이스를 읽어 오는 것이다) 인스턴스로 접근 했다
 print(DB_manager_exr.cnxor.mane(DICTA['subjectName']))
-
-
+# 스타일시트
+# COMPLETED_STYLE = """
+# QProgressBar{
+#     border: 2px dotted white;
+#     border-radius: 5px;
+#     text-align: center
+# }
+# """
 
 class Ui_Form(QtWidgets.QWidget):
 
@@ -75,6 +81,12 @@ class Ui_Form(QtWidgets.QWidget):
         # self.pushButton_2.clicked.connect(self.commit2)
 
 
+        # 메시지박스 팝업
+        self.pushButton_2.clicked.connect(self.showDialog)
+
+        # 스타일 시트 연결
+        # self.progressBar.setStyleSheet(COMPLETED_STYLE)
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Super Facny Progress BAR"))
@@ -92,6 +104,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.UpdateTree()
         #메시지를 보냇으면 리셋해야지 또 쓰겡
         self.lineEdit.clear()
+        print("도장 콩콩 시간을 기록했어!")
 
 
     #업데이트 설계
@@ -103,6 +116,16 @@ class Ui_Form(QtWidgets.QWidget):
         #리셋후에는 값을 씌워줘야곘지? 이런 간단한 메카니점이었다니!
         self.progressBar.setProperty("value", *(DB_manager_exr.cnxor.mane(DICTA['subjectName'])))
 
+    #팝업창 설계(언바운드타입을 먼저 선언함)
+    def showDialog(self):
+        self.ipD= QtWidgets.QInputDialog()
+        # self.ipD.cancelButtonText()
+        self.ipD.setCancelButtonText("no")
+
+        #튜플언패킹이당 텍스트엔 텍스트를, ok에는 불린을 저장함
+        text, ok = self.ipD.getText(self,'도장콩콩', '커밋 메시지를 입력!')
+        if ok:
+            print(text)
 
     #탭에 선택된 텍스트를 출력해주옵니다
     # def commit2(self):
@@ -131,6 +154,7 @@ if __name__ == "__main__":
     # Form = QtWidgets.QWidget()
     ui = Ui_Form(db, tableName)
     # ui.setupUi(Form)
+
     ui.show()
     sys.exit(app.exec_())
 
